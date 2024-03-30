@@ -15,27 +15,28 @@ def tanh(x):
 
 def plot_function(x, plots):
     file_sufix = ""
-    for plot in plots:
+    num_plots = len(plots)
+    fig, axs = plt.subplots(num_plots, 1, figsize=(4,6 ))
+    for i, plot in enumerate(plots):
         if plot == 'sigmoid':
             y = sigmoid(x)
-            plt.plot(x, y, label='Sigmoid')
-            
+            axs[i].plot(x, y, label='Sigmoid')
         elif plot == 'relu':
             y = relu(x)
-            plt.plot(x, y, label='ReLU')
+            axs[i].plot(x, y, label='ReLU')
         elif plot == 'leaky_relu':
             y = leaky_relu(x)
-            plt.plot(x, y, label='Leaky ReLU')
+            axs[i].plot(x, y, label='Leaky ReLU')
         elif plot == 'tanh':
             y = tanh(x)
-            plt.plot(x, y, label='Tanh')
-        file_sufix = file_sufix+'_'+plot
-    plt.xlabel('x')
-    plt.ylabel('Activation')
-    plt.title('Activation function plot')
-    plt.grid(True)
-    plt.legend()
-    file_sufix = str(plots)
+            axs[i].plot(x, y, label='Tanh')
+        axs[i].set_xlabel('x')
+        axs[i].set_ylabel('Activation')
+        axs[i].set_title(f'{plot} Activation function plot')
+        axs[i].grid(True)
+        axs[i].legend()
+
+    plt.tight_layout()
     plt.savefig(f'activation_functions_{file_sufix}.png')
     plt.show()
 
